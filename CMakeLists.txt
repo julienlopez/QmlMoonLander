@@ -11,6 +11,13 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# TODO clean up
+set(ML_BOOST_ROOT_DIR "" CACHE PATH "Use specific boost folder?")
+if(NOT "${ML_BOOST_ROOT_DIR}" STREQUAL "")
+        include_directories("${ML_BOOST_ROOT_DIR}")
+        #link_directories("${ML_BOOST_ROOT_DIR}/stage/lib")
+endif()
+
 find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 
 file (GLOB SRC_FILES src/*)

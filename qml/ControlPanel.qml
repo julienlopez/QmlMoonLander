@@ -36,6 +36,18 @@ Rectangle {
                     width: parent.width
                     readOnly: true
                 }
+
+                Text {
+                    text: qsTr("fuel")
+                    width: parent.width
+                }
+
+                ProgressBar
+                {
+                    from: 0
+                    to: simulator.starting_fuel
+                    value: simulator.fuel
+                }
             }
         }
 
@@ -51,7 +63,6 @@ Rectangle {
             Column
             {
                anchors.fill: parent
-               width: parent.width
 
                Text {
                    text: qsTr("Throttle:")
@@ -66,7 +77,14 @@ Rectangle {
                     to: 1.0
                 }
             }
+        }
 
+        Button
+        {
+            text: qsTr("Start")
+            enabled: !simulator.is_running
+            onClicked: simulator.start();
+            width: parent.width
         }
 
     }
