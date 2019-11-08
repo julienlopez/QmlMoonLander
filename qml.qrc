@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="main.qml">qml/main.qml</file>
+        <file alias="MainScreen.qml">qml/MainScreen.qml</file>
+        <file alias="ControlPanel.qml">qml/ControlPanel.qml</file>
+    </qresource>
+</RCC>
