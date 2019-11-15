@@ -3,6 +3,13 @@
 
 #include <QObject>
 
+class QTimer;
+
+namespace Impl
+{
+class Simulator;
+}
+
 class Simulator : public QObject
 {
     Q_OBJECT
@@ -18,7 +25,7 @@ class Simulator : public QObject
 public:
     explicit Simulator(QObject* parent = nullptr);
 
-    virtual ~Simulator() = default;
+    virtual ~Simulator();
 
     double startingHeight() const;
     double startingFuel() const;
@@ -41,6 +48,7 @@ public slots:
     void start();
 
 private:
+    std::unique_ptr<Impl::Simulator> m_pimpl;
     const double m_starting_height;
     const double m_starting_fuel;
 
@@ -48,8 +56,14 @@ private:
     double m_fuel;
     double m_throttle;
 
+    QTimer* m_update_timer;
+
+    const double time_step_ms = 100;
+
     void setHeight(const double h);
     void setFuel(const double f);
+
+    void updateState();
 };
 
 #endif // SIMULATOR_HPP
