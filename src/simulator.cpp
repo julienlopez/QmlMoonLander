@@ -21,6 +21,8 @@
 
 #include <QTimer>
 
+#include <QDebug>
+
 namespace Impl
 {
 
@@ -52,13 +54,20 @@ public:
         using namespace boost::numeric::odeint;
         using stepper_type = symplectic_rkn_sb3a_mclachlan<Length_t, Momentum_t, double, Speed_t, Force_t, Time_t, vector_space_algebra >;
 
-        integrate_const(
-                stepper_type() ,
-                std::make_pair(
-                        [this](const Momentum_t& p, Speed_t& dqdt){ dqdt =  p / currentMass(); },
-                        [this](const Length_t& q, Force_t& dpdt) { dpdt = currentThrust() - gravity(q); }),
-                std::make_pair(boost::ref(m_height), boost::ref(m_momentum)),
-                0.0 * si::seconds , dt , dt);
+        // integrate_const(
+        //         stepper_type() ,
+        //         std::make_pair(
+        //                 [this](const Momentum_t& p, Speed_t& dqdt){ dqdt =  p / currentMass(); },
+        //                 [this](const Length_t& q, Force_t& dpdt) { dpdt = currentThrust() - gravity(q); }),
+        //         std::make_pair(boost::ref(m_height), boost::ref(m_momentum)),
+        //         0.0 * si::seconds , dt , dt);
+
+        integrate_n_steps(stepper_type(),
+                          std::make_pair(
+                                  [this](const Momentum_t& p, Speed_t& dqdt){ dqdt =  p / currentMass(); },
+                                  [this](const Length_t& q, Force_t& dpdt) { dpdt = currentThrust() - gravity(q); }),
+                          std::make_pair(boost::ref(m_height), boost::ref(m_momentum)),
+                          0.0 * si::seconds , dt , 1);
 
         return m_height;
     }
@@ -95,7 +104,7 @@ private:
 Simulator::Simulator(QObject* parent)
     : QObject(parent)
     , m_pimpl(std::make_unique<Impl::Simulator>())
-    , m_starting_height(1000)
+    , m_starting_height(10000)
     , m_starting_fuel(2000)
 {
     m_throttle = 0;
@@ -103,6 +112,7 @@ Simulator::Simulator(QObject* parent)
     m_height = 0.;
 
     m_update_timer = new QTimer(this);
+    m_update_timer->setInterval(time_step_ms);
     connect(m_update_timer, &QTimer::timeout, this, &Simulator::updateState);
 }
 
@@ -177,6 +187,9 @@ void Simulator::setFuel(const double f)
 
 void Simulator::updateState()
 {
+    qDebug() << "Simulator::updateState()";
+    qDebug() << m_height;
     const auto new_state = m_pimpl->update(time_step_ms * Impl::si::seconds);
     setHeight(new_state.value());
+    qDebug() << m_height;
 }
