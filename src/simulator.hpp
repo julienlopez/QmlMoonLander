@@ -3,12 +3,9 @@
 
 #include <QObject>
 
-class QTimer;
+class IEngine;
 
-namespace Impl
-{
-class Simulator;
-}
+class QTimer;
 
 class Simulator : public QObject
 {
@@ -48,7 +45,7 @@ public slots:
     void start();
 
 private:
-    std::unique_ptr<Impl::Simulator> m_pimpl;
+    std::unique_ptr<IEngine> m_engine;
     const double m_starting_height;
     const double m_starting_fuel;
 
