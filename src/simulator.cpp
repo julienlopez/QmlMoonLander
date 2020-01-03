@@ -2,6 +2,7 @@
 #include "iengine.hpp"
 
 #include "boostengine.hpp"
+#include "basiceulerengine.hpp"
 
 #include <QTimer>
 
@@ -9,7 +10,7 @@
 
 Simulator::Simulator(QObject* parent)
     : QObject(parent)
-    , m_engine(std::make_unique<BoostEngine>())
+    , m_engine(std::make_unique<BasicEulerEngine>())
     , m_starting_height(10000)
     , m_starting_fuel(2000)
 {
