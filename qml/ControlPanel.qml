@@ -96,10 +96,12 @@ Rectangle {
 
                 Slider
                 {
+                    id: throttle_slider
                     live: true
                     value: simulator.throttle
                     from: 0.0
                     to: 1.0
+                    onValueChanged: simulator.throttle = value
                 }
             }
         }

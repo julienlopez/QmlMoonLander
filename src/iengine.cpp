@@ -1,5 +1,12 @@
 #include "iengine.hpp"
 
+void IEngine::setThrottle(const double t)
+{
+    m_throttle = t;
+    if(m_throttle > 1) m_throttle = 1.;
+    if(m_throttle < 0) m_throttle = 0.;
+}
+
 auto IEngine::currentMass() const -> Mass_t
 {
     // TODO actual mass computation
@@ -10,7 +17,8 @@ auto IEngine::currentMass() const -> Mass_t
 
 auto IEngine::currentThrust() const -> Force_t
 {
-    return 0. * si::meter * si::kilogram / si::second / si::second;
+    const auto max_thrust = 45.04 * 1000 * si::newtons;
+    return m_throttle * max_thrust;
 }
 
 auto IEngine::gravity(const Length_t& height) const -> Force_t

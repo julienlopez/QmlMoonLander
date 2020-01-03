@@ -40,6 +40,8 @@ public:
 
     virtual std::pair<Length_t, Speed_t> update(const Time_t dt) = 0;
 
+    void setThrottle(const double t);
+
 protected:
     Mass_t currentMass() const;
 
@@ -51,4 +53,5 @@ protected:
 
     static const inline Mass_t dry_mass = 2792 * si::kilograms;
     static const inline Mass_t total_mass = 16437 * si::kilograms;
+    double m_throttle;
 };

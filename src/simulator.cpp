@@ -63,9 +63,10 @@ double Simulator::throttle() const
 
 void Simulator::setThrottle(const double t)
 {
-    if(std::abs(t - m_throttle) < 1E-6)
+    if(std::abs(t - m_throttle) > 1E-6)
     {
         m_throttle = t;
+        m_engine->setThrottle(m_throttle);
         emit throttleChanged(m_throttle);
     }
 }
