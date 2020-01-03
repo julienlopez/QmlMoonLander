@@ -36,12 +36,6 @@ Rectangle {
                     readOnly: true
                 }
 
-                Rectangle{
-                    color: black;
-                    width: parent.width
-                    height: 1
-                }
-
                 Text {
                     text: qsTr("speed:")
                     width: parent.width
@@ -52,12 +46,6 @@ Rectangle {
                     text: simulator.speed
                     width: parent.width
                     readOnly: true
-                }
-
-                Rectangle{
-                    color: black;
-                    width: parent.width
-                    height: 1
                 }
 
                 Text {
