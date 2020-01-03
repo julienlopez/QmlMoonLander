@@ -27,7 +27,6 @@ Rectangle {
                 Text {
                     text: qsTr("height:")
                     width: parent.width
-
                 }
 
                 TextField
@@ -35,6 +34,30 @@ Rectangle {
                     text: simulator.height
                     width: parent.width
                     readOnly: true
+                }
+
+                Rectangle{
+                    color: black;
+                    width: parent.width
+                    height: 1
+                }
+
+                Text {
+                    text: qsTr("speed:")
+                    width: parent.width
+                }
+
+                TextField
+                {
+                    text: simulator.speed
+                    width: parent.width
+                    readOnly: true
+                }
+
+                Rectangle{
+                    color: black;
+                    width: parent.width
+                    height: 1
                 }
 
                 Text {
@@ -47,6 +70,8 @@ Rectangle {
                     from: 0
                     to: simulator.starting_fuel
                     value: simulator.fuel
+                    width: 0.9 * parent.width
+                    anchors.horizontalCenter: parent.horizontalCenter
                 }
             }
         }

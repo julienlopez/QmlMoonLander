@@ -16,6 +16,7 @@ class Simulator : public QObject
     Q_PROPERTY(bool is_running READ isRunning NOTIFY isRunningChanged)
 
     Q_PROPERTY(double height READ height NOTIFY heightChanged MEMBER m_height)
+    Q_PROPERTY(double speed READ speed NOTIFY speedChanged MEMBER m_speed)
     Q_PROPERTY(double fuel READ fuel NOTIFY fuelChanged MEMBER m_fuel)
     Q_PROPERTY(double throttle READ throttle WRITE setThrottle NOTIFY throttleChanged MEMBER m_throttle)
 
@@ -30,6 +31,7 @@ public:
     bool isRunning() const;
 
     double height() const;
+    double speed() const;
     double fuel() const;
     double throttle() const;
 
@@ -38,6 +40,7 @@ public:
 signals:
     void isRunningChanged(bool);
     void heightChanged(double);
+    void speedChanged(double);
     void fuelChanged(double);
     void throttleChanged(double);
 
@@ -50,6 +53,7 @@ private:
     const double m_starting_fuel;
 
     double m_height;
+    double m_speed;
     double m_fuel;
     double m_throttle;
 
@@ -58,6 +62,8 @@ private:
     const double time_step_ms = 100;
 
     void setHeight(double h);
+
+    void setSpeed(double s);
 
     void setFuel(const double f);
 

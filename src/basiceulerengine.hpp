@@ -11,7 +11,7 @@ public:
 
     virtual void reset(Length_t new_state) override;
 
-    virtual Length_t update(const Time_t dt) override;
+    virtual std::pair<Length_t, Speed_t> update(const Time_t dt) override;
 
 private:
     Length_t m_height;

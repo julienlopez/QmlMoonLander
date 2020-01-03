@@ -8,7 +8,7 @@ void BoostEngine::reset(Length_t new_state)
     m_momentum = 0 * si::kilograms * si::meters / si::seconds;
 }
 
-BoostEngine::Length_t BoostEngine::update(const Time_t dt)
+auto BoostEngine::update(const Time_t dt) -> std::pair<Length_t, Speed_t>
 {
     using namespace boost::numeric::odeint;
     using stepper_type
@@ -27,5 +27,5 @@ BoostEngine::Length_t BoostEngine::update(const Time_t dt)
                                      [this](const Length_t& q, Force_t& dpdt) { dpdt = totalForce(q); }),
                       std::make_pair(boost::ref(m_height), boost::ref(m_momentum)), 0.0 * si::seconds, dt, 1);
 
-    return m_height;
+    return {m_height, m_momentum / currentMass()};
 }

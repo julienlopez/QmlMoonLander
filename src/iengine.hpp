@@ -38,7 +38,7 @@ public:
 
     virtual void reset(Length_t new_state) = 0;
 
-    virtual Length_t update(const Time_t dt) = 0;
+    virtual std::pair<Length_t, Speed_t> update(const Time_t dt) = 0;
 
 protected:
     Mass_t currentMass() const;
