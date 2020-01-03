@@ -23,9 +23,9 @@ find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 file (GLOB SRC_FILES src/*)
 
 if(ANDROID)
-    add_library(QmlMoonLander SHARED ${SRC_FILES} qml.qrc)
+    add_library(QmlMoonLander SHARED ${SRC_FILES} qml.qrc images.qrc)
 else()
-    add_executable(QmlMoonLander ${SRC_FILES} qml.qrc)
+    add_executable(QmlMoonLander ${SRC_FILES} qml.qrc images.qrc)
 endif()
 
 target_compile_definitions(QmlMoonLander
