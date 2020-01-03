@@ -18,7 +18,9 @@ auto IEngine::gravity(const Length_t& height) const -> Force_t
     const auto gravitational_constant
         = 6.67430e-11 * si::meter * si::meter * si::meter / si::kilogram / si::second / si::second;
     const Mass_t moon_mass = 7.342e22 * si::kilograms;
-    return gravitational_constant * currentMass() * moon_mass / (height * height);
+    const Length_t moon_radius = 1737.4 * 1000 * si::meter;
+    const auto actual_height = height + moon_radius;
+    return gravitational_constant * currentMass() * moon_mass / (actual_height * actual_height);
 }
 
 auto IEngine::totalForce(const Length_t& height) const -> Force_t

@@ -1,8 +1,8 @@
 #include "simulator.hpp"
 #include "iengine.hpp"
 
-#include "boostengine.hpp"
 #include "basiceulerengine.hpp"
+#include "boostengine.hpp"
 
 #include <QTimer>
 
@@ -74,10 +74,15 @@ void Simulator::start()
     emit isRunningChanged(true);
 }
 
-void Simulator::setHeight(const double h)
+void Simulator::setHeight(double h)
 {
     if(std::abs(h - m_height) > 1E-6)
     {
+        if(h < 0)
+        {
+            h = 0;
+            m_update_timer->stop();
+        }
         m_height = h;
         emit heightChanged(m_height);
     }
@@ -96,7 +101,7 @@ void Simulator::updateState()
 {
     qDebug() << "Simulator::updateState()";
     qDebug() << m_height;
-    const auto new_state = m_engine->update(time_step_ms * si::seconds);
+    const auto new_state = m_engine->update(time_step_ms / 1000 * si::seconds);
     setHeight(new_state.value());
     qDebug() << m_height;
 }

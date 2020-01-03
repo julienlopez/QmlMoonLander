@@ -57,7 +57,8 @@ private:
 
     const double time_step_ms = 100;
 
-    void setHeight(const double h);
+    void setHeight(double h);
+
     void setFuel(const double f);
 
     void updateState();
