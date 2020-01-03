@@ -41,11 +41,13 @@ public:
     virtual Length_t update(const Time_t dt) = 0;
 
 protected:
-    virtual Mass_t currentMass() const = 0;
+    Mass_t currentMass() const;
 
-    virtual Force_t currentThrust() const = 0;
+    Force_t currentThrust() const;
 
-    virtual Force_t gravity(const Length_t& height) const = 0;
+    Force_t gravity(const Length_t& height) const;
+
+    Force_t totalForce(const Length_t& height) const;
 
     static const inline Mass_t dry_mass = 2792 * si::kilograms;
     static const inline Mass_t total_mass = 16437 * si::kilograms;
